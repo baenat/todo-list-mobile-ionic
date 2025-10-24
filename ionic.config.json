@@ -1,0 +1,7 @@
+{
+  "name": "todo-list-mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
