@@ -1,0 +1,79 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="ion-text-bold">
+      Mis Tareas
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="'/categories'" routerDirection="forward">
+        <ion-icon name="bookmarks-outline" slot="icon-only" color="success"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- Categories -->
+  <category-selector />
+
+  <!-- Tasks List -->
+  <ion-list class="tasks-list">
+    @for (task of tasks; track task.id) {
+      <ion-item
+        lines="none"
+        class="task-item">
+        <div class="task-content">
+          <ion-checkbox
+            slot="start"
+            [checked]="task.completed"
+            (ionChange)="toggleTask(task.id)"
+            class="task-checkbox">
+          </ion-checkbox>
+
+          <div class="task-info">
+            <ion-label [class.completed]="task.completed">
+              {{ task.title }}
+            </ion-label>
+            <div class="task-category">
+              <span class="category-dot"
+                [style.background-color]="getCategoryColor(task.categoryId)"></span>
+              <span class="category-text">{{ getCategoryName(task.categoryId) }}</span>
+            </div>
+          </div>
+
+          <ion-button
+            fill="clear"
+            slot="end"
+            color="danger"
+            (click)="deleteTask(task)">
+            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </div>
+
+      </ion-item>
+    }
+    @empty {
+    <div class="empty-state">
+      <p>No hay tareas en esta categoría</p>
+    </div>
+    }
+  </ion-list>
+
+  <!-- Floating Action Button -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openCreateModal()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Task Modal -->
+   @if (showTaskModal()) {
+    <task-modal
+      [isOpen]="showTaskModal()"
+      [task]="editingTask()"
+      [categories]="categories"
+      (saveTask)="addTask($event)"
+      (closeModal)="showTaskModal.set(false)">
+    </task-modal>
+   }
+</ion-content>
