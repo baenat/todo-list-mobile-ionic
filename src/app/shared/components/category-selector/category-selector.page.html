@@ -10,7 +10,8 @@
   <!-- Categoría Personalizadas -->
   @for (category of categories(); track category.id) {
     <ion-chip
-      [class.selected]="selectedCategory() === category.id"
+      [style.background-color]="selectedCategory() === category.id ? category.color : '#e0e0e0'"
+      [style.color]="selectedCategory() === category.id ? '#fff' : '#000'"
       (click)="selectedCategory.set(category.id)">
       {{ category.name }}
     </ion-chip>
