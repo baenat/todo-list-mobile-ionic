@@ -37,7 +37,7 @@
               <ion-button
                 fill="clear"
                 class="action-button delete-button"
-                (click)="openDeleteAlert(category.id)">
+                (click)="openDeleteAlert(category)">
                 <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
               </ion-button>
             </div>
@@ -60,7 +60,7 @@
       [isOpen]="showCategoryModal()"
       [category]="editingCategory()"
       [title]="modalTitle()"
-      (saveCategory)="saveCategory($event)"
+      (saveCategory)="handleCategory($event)"
       (closeModal)="closeModal()">
     </category-modal>
   }

@@ -5,6 +5,9 @@ import { CategoryRepositoryImpl } from '@data/repositories/category.repository.i
 import { IonicModule } from '@ionic/angular';
 import { CategoryModalPage } from "@shared/components/category-modal/category-modal.page";
 import { CategoryEntity } from 'src/app/domain/entities/category.entity';
+import { AddCategoryUseCase } from 'src/app/domain/usecases/add-category.usecase';
+import { DeleteCategoryUseCase } from 'src/app/domain/usecases/delete-task.usecase';
+import { UpdateCategoryUseCase } from 'src/app/domain/usecases/update-category.usecase';
 
 @Component({
   selector: 'categories',
@@ -25,7 +28,7 @@ export class CategoriesPage implements OnInit {
     {
       text: 'Aceptar',
       role: 'confirm',
-      handler: () => this.confirmDelete(),
+      handler: () => this.deleteCategory(),
     }
   ];
 
@@ -33,7 +36,7 @@ export class CategoriesPage implements OnInit {
   editingCategory = signal<CategoryEntity | null>(null);
   modalTitle = signal<string>('Nueva Categoría');
   showAlert = signal<boolean>(false);
-  selectedId = signal<string>('');
+  selectedCategory = signal<CategoryEntity | null>(null);
 
 
   constructor(
@@ -60,8 +63,8 @@ export class CategoriesPage implements OnInit {
     this.showCategoryModal.set(true);
   }
 
-  openDeleteAlert(id: string) {
-    this.selectedId.set(id);
+  openDeleteAlert(category: CategoryEntity) {
+    this.selectedCategory.set(category);
     this.showAlert.set(true);
   }
 
@@ -70,17 +73,29 @@ export class CategoriesPage implements OnInit {
     this.editingCategory.set(null);
   }
 
-  deleteCategory(categoryId: string) {
-    // validación para verificar si tiene tareas
-    this.categories = this.categories.filter(c => c.id !== categoryId);
+  async addCategory(task: CategoryEntity) {
+    const useCaseCategory = new AddCategoryUseCase(this.categoryRepo);
+    await useCaseCategory.execute(task);
+    this.categories = await this.categoryRepo.getCategories();
   }
 
-  async confirmDelete() {
-    console.log('Delete ...', this.selectedId());
+  async updateCategory(task: CategoryEntity) {
+    const useCaseCategory = new UpdateCategoryUseCase(this.categoryRepo);
+    await useCaseCategory.execute(task);
+    this.categories = await this.categoryRepo.getCategories();
   }
 
-  saveCategory(event: CategoryEntity) {
-    console.log('Save ...', event);
+  async deleteCategory() {
+    const category = this.selectedCategory();
+    if (!category) return;
+
+    const useCaseTask = new DeleteCategoryUseCase(this.categoryRepo);
+    await useCaseTask.execute(category.id);
+    this.categories = await this.categoryRepo.getCategories();
+  }
+
+  async handleCategory(category: CategoryEntity) {
+    (this.editingCategory()) ? await this.updateCategory(category) : await this.addCategory(category);
   }
 
 }
