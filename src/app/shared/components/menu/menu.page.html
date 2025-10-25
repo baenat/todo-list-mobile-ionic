@@ -1,0 +1,19 @@
+<ion-menu side="start" menuId="main" contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title class="ion-text-center">Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      @for (m of menu(); track m.redirectTo) {
+        <ion-menu-toggle autoHide="false">
+          <ion-item [routerLink]="m.redirectTo" detail>
+            <ion-icon [name]="m.icon" slot="start" color="primary"></ion-icon>
+            {{ m.name }}
+          </ion-item>
+        </ion-menu-toggle>
+      }
+    </ion-list>
+  </ion-content>
+</ion-menu>
