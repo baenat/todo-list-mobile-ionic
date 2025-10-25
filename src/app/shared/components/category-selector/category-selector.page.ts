@@ -15,7 +15,7 @@ import { CategoryRepositoryImpl } from '@data/repositories/category.repository.i
 export class CategorySelectorPage implements OnInit {
 
   categories = signal<CategoryEntity[]>([]);
-  selectedCategory = signal<string>('all');
+  selectedCategory = signal<string>('Todas');
   category = output<string>();
 
   constructor(

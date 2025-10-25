@@ -14,11 +14,11 @@
 <ion-content [fullscreen]="true">
 
   <!-- Categories -->
-  <category-selector />
+  <category-selector (category)="selectedCategory.set($event)" />
 
   <!-- Tasks List -->
   <ion-list class="tasks-list">
-    @for (task of tasks; track task.id) {
+    @for (task of filteredTasks(); track task.id) {
       <ion-item
         lines="none"
         class="task-item">

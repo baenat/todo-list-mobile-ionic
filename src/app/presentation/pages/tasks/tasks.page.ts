@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, effect, OnInit, signal } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 
 import { FormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { TaskModalPage } from "@shared/components/task-modal/task-modal.page";
 import { CategoryEntity } from 'src/app/domain/entities/category.entity';
 import { TaskEntity } from 'src/app/domain/entities/task.entity';
 import { AddTaskUseCase } from 'src/app/domain/usecases/add-task.usecase';
-import { DeleteTaskUseCase } from 'src/app/domain/usecases/delete-task.usecase';
+import { DeleteTaskUseCase } from 'src/app/domain/usecases/delete-category.usecase';
 
 @Component({
   selector: 'tasks',
@@ -27,10 +27,12 @@ export class TasksPage implements OnInit {
 
   newTaskTitle = signal<string>('');
 
-  selectedCategory = signal<string>('all');
+  selectedCategory = signal<string>('Todas');
   showTaskModal = signal<boolean>(false);
   editingTask = signal<TaskEntity | null>(null);
   modalTitle = signal<string>('');
+
+  filteredTasks = signal<TaskEntity[]>([]);
 
   constructor(
     private taskRepo: TaskRepositoryImpl,
@@ -41,8 +43,17 @@ export class TasksPage implements OnInit {
     this.loadData();
   }
 
+  filterTaskEffect = effect(() => {
+    const selectedCategory = this.selectedCategory();
+    const tasks = selectedCategory === 'Todas'
+      ? this.tasks
+      : this.tasks.filter(task => task.categoryId === selectedCategory);
+    this.filteredTasks.set(tasks);
+  })
+
   async loadData() {
     this.tasks = await this.taskRepo.getTasks();
+    this.filteredTasks.set(this.tasks);
     this.categories = await this.categoryRepo.getCategories();
   }
 

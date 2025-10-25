@@ -2,16 +2,16 @@
 <div class="categories-container">
   <!-- Categoría "Todas" -->
   <ion-chip
-    [class.selected]="selectedCategory() === 'all'"
-    (click)="selectedCategory.set('all')">
+    [class.selected]="selectedCategory() === 'Todas'"
+    (click)="selectedCategory.set('Todas')">
     Todas
   </ion-chip>
 
   <!-- Categoría Personalizadas -->
   @for (category of categories(); track category.id) {
     <ion-chip
-      [class.selected]="selectedCategory() === category.name"
-      (click)="selectedCategory.set(category.name)">
+      [class.selected]="selectedCategory() === category.id"
+      (click)="selectedCategory.set(category.id)">
       {{ category.name }}
     </ion-chip>
   }
