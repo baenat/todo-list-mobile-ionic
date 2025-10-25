@@ -1,0 +1,55 @@
+<ion-modal [isOpen]="isOpen()" (didDismiss)="closeModal.emit()" [breakpoints]="[0, 0.6, 0.8]" [initialBreakpoint]="0.6">
+  <ng-template>
+    <div class="modal-container">
+      <div class="modal-content">
+        <h2 class="modal-title">{{ title() }}</h2>
+
+        <div class="form-group">
+          <ion-input
+            #txtName
+            type="text"
+            class="category-input"
+            [value]="categoryName()"
+            placeholder="Nombre de la categoría"
+            (input)="onChangeName($event)"
+            [clearInput]="true">
+          </ion-input>
+
+          <ion-input
+            type="color"
+            class="category-color"
+            [value]="categoryColor()"
+            [clearInput]="true"
+            (input)="onSelectColor($event)">
+          </ion-input>
+        </div>
+
+        <div class="modal-color">
+          <div [style.background-color]="categoryColor()">
+          </div>
+          <ion-label >
+            {{ categoryName() }}
+          </ion-label>
+        </div>
+
+        <div class="modal-actions">
+          <ion-button
+            expand="block"
+            fill="clear"
+            class="cancel-button"
+            (click)="closeModal.emit()">
+            Cancelar
+          </ion-button>
+
+          <ion-button
+            expand="block"
+            class="save-button"
+            (click)="save()"
+            [disabled]="!categoryName()">
+            {{ category() ? 'Actualizar' : 'Agregar' }}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>
