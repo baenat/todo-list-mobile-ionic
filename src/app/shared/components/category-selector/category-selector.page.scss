@@ -1,0 +1,39 @@
+.categories-container {
+  padding: 2rem 1rem;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  max-width: 1200px;
+  margin-inline: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  ion-chip {
+    --background: #e5e7eb;
+    --color: #374151;
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0;
+
+    &.selected {
+      --background: #3b82f6;
+      --color: #ffffff;
+      box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+    }
+
+    &:hover {
+      --background: #d1d5db;
+    }
+
+    &.selected:hover {
+      --background: #2563eb;
+    }
+  }
+}
