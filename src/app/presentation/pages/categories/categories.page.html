@@ -1,0 +1,76 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gestionar Categorías</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="content-wrapper">
+    <p class="subtitle">Organiza tus tareas creando categorías.</p>
+
+    <ion-list class="categories-list">
+      @for (category of categories; track category.id) {
+        <ion-item
+          lines="none"
+          class="category-item">
+          <div class="category-content">
+            <div
+              class="category-color"
+              [style.background-color]="category.color">
+            </div>
+
+            <ion-label class="category-name">
+              {{ category.name }}
+            </ion-label>
+
+            <div class="category-actions">
+              <ion-button
+                fill="clear"
+                class="action-button"
+                (click)="openEditModal(category)">
+                <ion-icon name="pencil-outline" slot="icon-only"></ion-icon>
+              </ion-button>
+
+              <ion-button
+                fill="clear"
+                class="action-button delete-button"
+                (click)="openDeleteAlert(category.id)">
+                <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </ion-item>
+      }
+    </ion-list>
+  </div>
+
+  <!-- Floating Action Button -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openCreateModal()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Modal de Categoría -->
+  @if (showCategoryModal()) {
+    <category-modal
+      [isOpen]="showCategoryModal()"
+      [category]="editingCategory()"
+      [title]="modalTitle()"
+      (saveCategory)="saveCategory($event)"
+      (closeModal)="closeModal()">
+    </category-modal>
+  }
+
+  <!-- Alert -->
+  <ion-alert
+    [isOpen]="showAlert()"
+    header="Confirmar"
+    message="¿Estás seguro de eliminar?"
+    [buttons]="buttons"
+    (didDismiss)="showAlert.set(false)">
+  </ion-alert>
+</ion-content>

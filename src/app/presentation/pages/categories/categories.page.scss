@@ -1,0 +1,107 @@
+ion-header {
+  ion-toolbar {
+    --background: #ffffff;
+
+    ion-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    ion-button {
+      --color: #1a1a1a;
+    }
+  }
+}
+
+ion-content {
+  --background: #f5f5f5;
+}
+
+.content-wrapper {
+  padding: 16px;
+}
+
+.subtitle {
+  color: #6b7280;
+  text-align: center;
+}
+
+.categories-list {
+  background: transparent;
+  padding: 0;
+
+  ion-item {
+    --background: #ffffff;
+    --padding-start: 0;
+    --padding-end: 0;
+    --inner-padding-end: 0;
+    margin-bottom: 12px;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+.category-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+  gap: 16px;
+}
+
+.category-color {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.category-name {
+  flex: 1;
+  font-size: 18px;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.category-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.action-button {
+  --padding-start: 8px;
+  --padding-end: 8px;
+  margin: 0;
+
+  ion-icon {
+    font-size: 22px;
+    color: #6b7280;
+  }
+
+  &:hover ion-icon {
+    color: #374151;
+  }
+
+  &.delete-button ion-icon {
+    color: #ef4444;
+  }
+
+  &.delete-button:hover ion-icon {
+    color: #dc2626;
+  }
+}
+
+ion-fab-button {
+  --background: #3b82f6;
+  --box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4);
+
+  &:hover {
+    --background: #2563eb;
+  }
+}
