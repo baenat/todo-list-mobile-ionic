@@ -1,0 +1,54 @@
+<ion-modal [isOpen]="isOpen()" (didDismiss)="closeModal.emit()" [breakpoints]="[0, 0.6, 0.8]" [initialBreakpoint]="0.6">
+  <ng-template>
+    <div class="modal-container">
+      <div class="modal-content">
+        <h2 class="modal-title">{{ title() }}</h2>
+
+        <div class="form-group">
+          <ion-input
+            type="text"
+            class="category-input"
+            [value]="nameTask()"
+            placeholder="Nombre de la tarea"
+            (input)="onInputName($event)"
+            [clearInput]="true">
+          </ion-input>
+        </div>
+
+        <div class="form-group">
+            <ion-select
+              [ngModel]="categoryTask()"
+              interface="action-sheet"
+              placeholder="Seleccionar categoría"
+              class="category-select"
+              (ionChange)="onCategoryChange($event)">
+              @for (category of categories(); track category.id) {
+                <ion-select-option
+                  [value]="category.id">
+                  {{ category.name }}
+                </ion-select-option>
+              }
+            </ion-select>
+          </div>
+
+        <div class="modal-actions">
+          <ion-button
+            expand="block"
+            fill="clear"
+            class="cancel-button"
+            (click)="closeModal.emit()">
+            Cancelar
+          </ion-button>
+
+          <ion-button
+            expand="block"
+            class="save-button"
+            (click)="save()"
+            [disabled]="!nameTask() || !categoryTask()">
+            {{ task() ? 'Actualizar' : 'Agregar' }}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>
