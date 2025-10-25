@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonButton, IonInput, IonModal, IonSelect, IonSelectOption, } from '@ionic/angular/standalone';
-import { Category } from 'src/app/domain/entities/category.entity';
-import { Task } from 'src/app/domain/entities/task.entity';
+import { CategoryEntity } from 'src/app/domain/entities/category.entity';
+import { TaskEntity } from 'src/app/domain/entities/task.entity';
 
 @Component({
   selector: 'task-modal',
@@ -14,13 +14,13 @@ import { Task } from 'src/app/domain/entities/task.entity';
 })
 export class TaskModalPage {
 
-  task = input<Task | null>();
-  categories = input.required<Category[]>();
+  task = input<TaskEntity | null>();
+  categories = input.required<CategoryEntity[]>();
 
   isOpen = input.required<boolean>();
   title = input<string>('Nueva Tarea');
 
-  saveTask = output<Task>();
+  saveTask = output<TaskEntity>();
   closeModal = output<void>();
 
   nameTask = signal<string>('');
@@ -42,7 +42,7 @@ export class TaskModalPage {
     const task = this.nameTask();
     const category = this.categoryTask();
     if (task && category) {
-      const savedTask: Task = {
+      const savedTask: TaskEntity = {
         id: this.task()?.id || crypto.randomUUID(),
         title: task,
         categoryId: category,

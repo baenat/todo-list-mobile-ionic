@@ -1,8 +1,8 @@
-import { Category } from "../entities/category.entity";
+import { CategoryEntity } from "../entities/category.entity";
 
 export abstract class CategoryRepository {
-  abstract getCategories(): Promise<Category[]>;
-  abstract addCategory(category: Category): Promise<void>;
-  abstract updateCategory(category: Category): Promise<void>;
+  abstract getCategories(): Promise<CategoryEntity[]>;
+  abstract addCategory(category: CategoryEntity): Promise<void>;
+  abstract updateCategory(category: CategoryEntity): Promise<void>;
   abstract deleteCategory(id: string): Promise<void>;
 }

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CategoryRepositoryImpl } from '@data/repositories/category.repository.impl';
 import { IonicModule } from '@ionic/angular';
 import { CategoryModalPage } from "@shared/components/category-modal/category-modal.page";
-import { Category } from 'src/app/domain/entities/category.entity';
+import { CategoryEntity } from 'src/app/domain/entities/category.entity';
 
 @Component({
   selector: 'categories',
@@ -15,7 +15,7 @@ import { Category } from 'src/app/domain/entities/category.entity';
 })
 export class CategoriesPage implements OnInit {
 
-  categories: Category[] = [];
+  categories: CategoryEntity[] = [];
   buttons = [
     {
       text: 'Cancelar',
@@ -30,7 +30,7 @@ export class CategoriesPage implements OnInit {
   ];
 
   showCategoryModal = signal<boolean>(false);
-  editingCategory = signal<Category | null>(null);
+  editingCategory = signal<CategoryEntity | null>(null);
   modalTitle = signal<string>('Nueva Categoría');
   showAlert = signal<boolean>(false);
   selectedId = signal<string>('');
@@ -54,7 +54,7 @@ export class CategoriesPage implements OnInit {
     this.showCategoryModal.set(true);
   }
 
-  openEditModal(category: Category) {
+  openEditModal(category: CategoryEntity) {
     this.editingCategory.set(category);
     this.modalTitle.set('Editar Categoría');
     this.showCategoryModal.set(true);
@@ -79,7 +79,7 @@ export class CategoriesPage implements OnInit {
     console.log('Delete ...', this.selectedId());
   }
 
-  saveCategory(event: Category) {
+  saveCategory(event: CategoryEntity) {
     console.log('Save ...', event);
   }
 

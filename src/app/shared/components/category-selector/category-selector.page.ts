@@ -2,7 +2,7 @@ import { Component, effect, OnInit, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonChip } from "@ionic/angular/standalone";
-import { Category } from 'src/app/domain/entities/category.entity';
+import { CategoryEntity } from 'src/app/domain/entities/category.entity';
 import { CategoryRepositoryImpl } from '@data/repositories/category.repository.impl';
 
 @Component({
@@ -14,7 +14,7 @@ import { CategoryRepositoryImpl } from '@data/repositories/category.repository.i
 })
 export class CategorySelectorPage implements OnInit {
 
-  categories = signal<Category[]>([]);
+  categories = signal<CategoryEntity[]>([]);
   selectedCategory = signal<string>('all');
   category = output<string>();
 

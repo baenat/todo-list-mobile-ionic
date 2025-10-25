@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, input, OnInit, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonButton, IonInput, IonLabel, IonModal } from '@ionic/angular/standalone';
-import { Category } from 'src/app/domain/entities/category.entity';
+import { CategoryEntity } from 'src/app/domain/entities/category.entity';
 
 @Component({
   selector: 'category-modal',
@@ -13,11 +13,11 @@ import { Category } from 'src/app/domain/entities/category.entity';
 })
 export class CategoryModalPage implements OnInit {
 
-  category = input<Category | null>(null);
+  category = input<CategoryEntity | null>(null);
   title = input<string>('Nueva Categoría');
   isOpen = input<boolean>(false);
 
-  saveCategory = output<Category>();
+  saveCategory = output<CategoryEntity>();
   closeModal = output<void>();
 
   categoryName = signal<string>('');
@@ -33,7 +33,7 @@ export class CategoryModalPage implements OnInit {
   save() {
     const category = this.categoryName().trim();
     if (category) {
-      const savedCategory: Category = {
+      const savedCategory: CategoryEntity = {
         id: this.category()?.id || crypto.randomUUID(),
         name: category,
         color: this.categoryColor()

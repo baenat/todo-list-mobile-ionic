@@ -8,9 +8,10 @@ import { CategoryRepositoryImpl } from '@data/repositories/category.repository.i
 import { TaskRepositoryImpl } from '@data/repositories/task.repository.impl';
 import { CategorySelectorPage } from "@shared/components/category-selector/category-selector.page";
 import { TaskModalPage } from "@shared/components/task-modal/task-modal.page";
-import { Category } from 'src/app/domain/entities/category.entity';
-import { Task } from 'src/app/domain/entities/task.entity';
+import { CategoryEntity } from 'src/app/domain/entities/category.entity';
+import { TaskEntity } from 'src/app/domain/entities/task.entity';
 import { AddTaskUseCase } from 'src/app/domain/usecases/add-task.usecase';
+import { DeleteTaskUseCase } from 'src/app/domain/usecases/delete-task.usecase';
 
 @Component({
   selector: 'tasks',
@@ -21,14 +22,14 @@ import { AddTaskUseCase } from 'src/app/domain/usecases/add-task.usecase';
 })
 export class TasksPage implements OnInit {
 
-  tasks: Task[] = [];
-  categories: Category[] = [];
+  tasks: TaskEntity[] = [];
+  categories: CategoryEntity[] = [];
 
   newTaskTitle = signal<string>('');
 
   selectedCategory = signal<string>('all');
   showTaskModal = signal<boolean>(false);
-  editingTask = signal<Task | null>(null);
+  editingTask = signal<TaskEntity | null>(null);
   modalTitle = signal<string>('');
 
   constructor(
@@ -56,14 +57,15 @@ export class TasksPage implements OnInit {
     this.editingTask.set(null);
   }
 
-  async addTask(task: Task) {
+  async addTask(task: TaskEntity) {
     const useCaseTask = new AddTaskUseCase(this.taskRepo);
     await useCaseTask.execute(task);
     this.tasks = await this.taskRepo.getTasks();
   }
 
-  async deleteTask(task: Task) {
-    await this.taskRepo.deleteTask(task.id);
+  async deleteTask(task: TaskEntity) {
+    const useCaseTask = new DeleteTaskUseCase(this.taskRepo);
+    await useCaseTask.execute(task.id);
     this.tasks = await this.taskRepo.getTasks();
   }
 
