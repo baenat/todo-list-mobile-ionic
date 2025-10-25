@@ -12,13 +12,15 @@ import { CategoryEntity } from 'src/app/domain/entities/category.entity';
 import { TaskEntity } from 'src/app/domain/entities/task.entity';
 import { AddTaskUseCase } from 'src/app/domain/usecases/add-task.usecase';
 import { DeleteTaskUseCase } from 'src/app/domain/usecases/delete-category.usecase';
+import { FilterPipe } from '@shared/pipes/filter-pipe';
+import { UpdateTaskUseCase } from 'src/app/domain/usecases/update-task.usecase';
 
 @Component({
   selector: 'tasks',
   templateUrl: './tasks.page.html',
   styleUrls: ['./tasks.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, CategorySelectorPage, TaskModalPage, RouterLink]
+  imports: [IonicModule, CommonModule, FormsModule, CategorySelectorPage, TaskModalPage, RouterLink, FilterPipe]
 })
 export class TasksPage implements OnInit {
 
@@ -27,12 +29,10 @@ export class TasksPage implements OnInit {
 
   newTaskTitle = signal<string>('');
 
-  selectedCategory = signal<string>('Todas');
+  selectedCategory = signal<string>('');
   showTaskModal = signal<boolean>(false);
   editingTask = signal<TaskEntity | null>(null);
   modalTitle = signal<string>('');
-
-  filteredTasks = signal<TaskEntity[]>([]);
 
   constructor(
     private taskRepo: TaskRepositoryImpl,
@@ -43,17 +43,8 @@ export class TasksPage implements OnInit {
     this.loadData();
   }
 
-  filterTaskEffect = effect(() => {
-    const selectedCategory = this.selectedCategory();
-    const tasks = selectedCategory === 'Todas'
-      ? this.tasks
-      : this.tasks.filter(task => task.categoryId === selectedCategory);
-    this.filteredTasks.set(tasks);
-  })
-
   async loadData() {
     this.tasks = await this.taskRepo.getTasks();
-    this.filteredTasks.set(this.tasks);
     this.categories = await this.categoryRepo.getCategories();
   }
 
@@ -74,15 +65,25 @@ export class TasksPage implements OnInit {
     this.tasks = await this.taskRepo.getTasks();
   }
 
+  async updateTask(task: TaskEntity) {
+    const useCaseTask = new UpdateTaskUseCase(this.taskRepo);
+    await useCaseTask.execute(task);
+    this.tasks = await this.taskRepo.getTasks();
+  }
+
   async deleteTask(task: TaskEntity) {
     const useCaseTask = new DeleteTaskUseCase(this.taskRepo);
     await useCaseTask.execute(task.id);
     this.tasks = await this.taskRepo.getTasks();
   }
 
-  toggleTask(id: string) {
-    const task = this.tasks.find(t => t.id === id);
-    if (task) task.completed = !task.completed;
+  toggleTask(task: TaskEntity) {
+    const updateTask = {
+      ...task,
+      completed: !task.completed
+    }
+    task.completed = !task.completed;
+    this.updateTask(updateTask);
   }
 
   getCategoryColor(categoryId: string): string {

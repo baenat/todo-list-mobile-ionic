@@ -18,7 +18,7 @@
 
   <!-- Tasks List -->
   <ion-list class="tasks-list">
-    @for (task of filteredTasks(); track task.id) {
+    @for (task of tasks | filterBy: selectedCategory() ; track task.id) {
       <ion-item
         lines="none"
         class="task-item">
@@ -26,7 +26,7 @@
           <ion-checkbox
             slot="start"
             [checked]="task.completed"
-            (ionChange)="toggleTask(task.id)"
+            (ionChange)="toggleTask(task)"
             class="task-checkbox">
           </ion-checkbox>
 
