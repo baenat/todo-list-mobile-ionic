@@ -14,13 +14,14 @@ import { AddTaskUseCase } from 'src/app/domain/usecases/task/add-task.usecase';
 import { DeleteTaskUseCase } from 'src/app/domain/usecases/task/delete-task.usecase';
 import { FilterPipe } from '@shared/pipes/filter-pipe';
 import { UpdateTaskUseCase } from 'src/app/domain/usecases/task/update-task.usecase';
+import { TaskItemComponent } from "@shared/components/task-item/task-item.component";
 
 @Component({
   selector: 'tasks',
   templateUrl: './tasks.page.html',
   styleUrls: ['./tasks.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, CategorySelectorPage, TaskModalPage, RouterLink, FilterPipe]
+  imports: [IonicModule, CommonModule, FormsModule, CategorySelectorPage, TaskModalPage, RouterLink, FilterPipe, TaskItemComponent]
 })
 export class TasksPage implements OnInit {
 
@@ -77,7 +78,7 @@ export class TasksPage implements OnInit {
     this.tasks = await this.taskRepo.getTasks();
   }
 
-  toggleTask(task: TaskEntity) {
+  onToggleTask(task: TaskEntity) {
     const updateTask = {
       ...task,
       completed: !task.completed
@@ -94,6 +95,10 @@ export class TasksPage implements OnInit {
   getCategoryName(categoryId: string): string {
     const category = this.categories.find(c => c.id === categoryId);
     return category?.name || 'Sin categoría';
+  }
+
+  onDeleteTask(task: TaskEntity) {
+    this.deleteTask(task);
   }
 
 }
