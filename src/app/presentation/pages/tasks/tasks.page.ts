@@ -4,8 +4,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { ArrayCategoryRepositoryImpl } from '@data/repositories/array/array-category.repository.impl';
-import { ArrayTaskRepositoryImpl } from '@data/repositories/array/array-task.repository.impl';
+import { CategoryRepository } from '@domain/repositories/category.repository';
+import { TaskRepository } from '@domain/repositories/task.repository';
 import { GetCategoryUseCase } from '@domain/usecases/category/get-category.usecase';
 import { GetTaskUseCase } from '@domain/usecases/task/get-tasks.usecase';
 import { CategorySelectorPage } from "@shared/components/category-selector/category-selector.page";
@@ -38,8 +38,8 @@ export class TasksPage implements OnInit {
   modalTitle = signal<string>('');
 
   constructor(
-    private taskRepo: ArrayTaskRepositoryImpl,
-    private categoryRepo: ArrayCategoryRepositoryImpl
+    private taskRepo: TaskRepository,
+    private categoryRepo: CategoryRepository
   ) { }
 
   ngOnInit() {
