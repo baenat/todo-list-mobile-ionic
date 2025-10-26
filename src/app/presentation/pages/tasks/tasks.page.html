@@ -14,7 +14,9 @@
 <ion-content [fullscreen]="true">
 
   <!-- Categories -->
-  <category-selector [categories]="categories" (category)="selectedCategory.set($event)" />
+   @if (categories.length) {
+     <category-selector [categories]="categories" (category)="selectedCategory.set($event)" />
+   }
 
   <!-- Tasks List -->
   <ion-list class="tasks-list">
