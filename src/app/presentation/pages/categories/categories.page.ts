@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CategoryRepositoryImpl } from '@data/repositories/category.repository.impl';
+import { ArrayCategoryRepositoryImpl } from '@data/repositories/array/array-category.repository.impl';
 import { IonicModule } from '@ionic/angular';
 import { CategoryModalPage } from "@shared/components/category-modal/category-modal.page";
 import { CategoryEntity } from 'src/app/domain/entities/category.entity';
@@ -40,7 +40,7 @@ export class CategoriesPage implements OnInit {
 
 
   constructor(
-    private categoryRepo: CategoryRepositoryImpl,
+    private categoryRepo: ArrayCategoryRepositoryImpl,
   ) { }
 
   ngOnInit() {

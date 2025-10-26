@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonChip } from "@ionic/angular/standalone";
 import { CategoryEntity } from 'src/app/domain/entities/category.entity';
-import { CategoryRepositoryImpl } from '@data/repositories/category.repository.impl';
+import { ArrayCategoryRepositoryImpl } from '@data/repositories/array/array-category.repository.impl';
 
 @Component({
   selector: 'category-selector',
@@ -19,7 +19,7 @@ export class CategorySelectorPage implements OnInit {
   category = output<string>();
 
   constructor(
-    private categoryRepo: CategoryRepositoryImpl
+    private categoryRepo: ArrayCategoryRepositoryImpl
   ) { }
 
   categorySelectedEffect = effect(() => {

@@ -3,7 +3,7 @@ import { TaskRepository } from 'src/app/domain/repositories/task.repository';
 import { TaskEntity } from 'src/app/domain/entities/task.entity';
 
 @Injectable({ providedIn: 'root' })
-export class TaskRepositoryImpl extends TaskRepository {
+export class ArrayTaskRepositoryImpl extends TaskRepository {
 
   private tasks: TaskEntity[] = [
     { id: '1', title: 'Preparar presentación de...', categoryId: '1', completed: false, createdAt: new Date() },
