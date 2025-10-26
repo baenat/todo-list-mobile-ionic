@@ -1,20 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ArrayCategoryRepositoryImpl } from '@data/repositories/array/array-category.repository.impl';
 import { ArrayTaskRepositoryImpl } from '@data/repositories/array/array-task.repository.impl';
+import { GetCategoryUseCase } from '@domain/usecases/category/get-category.usecase';
+import { GetTaskUseCase } from '@domain/usecases/task/get-tasks.usecase';
 import { CategorySelectorPage } from "@shared/components/category-selector/category-selector.page";
+import { TaskItemComponent } from "@shared/components/task-item/task-item.component";
 import { TaskModalPage } from "@shared/components/task-modal/task-modal.page";
+import { FilterPipe } from '@shared/pipes/filter-pipe';
 import { CategoryEntity } from 'src/app/domain/entities/category.entity';
 import { TaskEntity } from 'src/app/domain/entities/task.entity';
 import { AddTaskUseCase } from 'src/app/domain/usecases/task/add-task.usecase';
 import { DeleteTaskUseCase } from 'src/app/domain/usecases/task/delete-task.usecase';
-import { FilterPipe } from '@shared/pipes/filter-pipe';
 import { UpdateTaskUseCase } from 'src/app/domain/usecases/task/update-task.usecase';
-import { TaskItemComponent } from "@shared/components/task-item/task-item.component";
 
 @Component({
   selector: 'tasks',
@@ -45,8 +47,18 @@ export class TasksPage implements OnInit {
   }
 
   async loadData() {
-    this.tasks = await this.taskRepo.getTasks();
-    this.categories = await this.categoryRepo.getCategories();
+    await this.getTasks();
+    await this.getCategories();
+  }
+
+  async getTasks() {
+    const useCaseTask = new GetTaskUseCase(this.taskRepo);
+    this.tasks = await useCaseTask.execute();
+  }
+
+  async getCategories() {
+    const useCaseCategory = new GetCategoryUseCase(this.categoryRepo);
+    this.categories = await useCaseCategory.execute();
   }
 
   openCreateModal() {
@@ -63,19 +75,19 @@ export class TasksPage implements OnInit {
   async addTask(task: TaskEntity) {
     const useCaseTask = new AddTaskUseCase(this.taskRepo);
     await useCaseTask.execute(task);
-    this.tasks = await this.taskRepo.getTasks();
+    this.getTasks();
   }
 
   async updateTask(task: TaskEntity) {
     const useCaseTask = new UpdateTaskUseCase(this.taskRepo);
     await useCaseTask.execute(task);
-    this.tasks = await this.taskRepo.getTasks();
+    this.getTasks();
   }
 
   async deleteTask(task: TaskEntity) {
     const useCaseTask = new DeleteTaskUseCase(this.taskRepo);
     await useCaseTask.execute(task.id);
-    this.tasks = await this.taskRepo.getTasks();
+    this.getTasks();
   }
 
   onToggleTask(task: TaskEntity) {

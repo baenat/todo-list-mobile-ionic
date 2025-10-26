@@ -11,7 +11,7 @@ export class ArrayCategoryRepositoryImpl extends CategoryRepository {
     { id: '3', name: 'Estudios', color: '#10b981' },
   ];
 
-  async getCategories(): Promise<CategoryEntity[]> { return this.categories; }
+  async getCategories(idCategory?: string): Promise<CategoryEntity[]> { return this.categories; }
 
   async addCategory(category: CategoryEntity): Promise<void> { this.categories.push(category); }
 
