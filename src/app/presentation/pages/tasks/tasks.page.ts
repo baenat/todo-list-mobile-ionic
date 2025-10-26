@@ -1,26 +1,29 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { CategoryRepositoryImpl } from '@data/repositories/category.repository.impl';
-import { TaskRepositoryImpl } from '@data/repositories/task.repository.impl';
+import { ArrayCategoryRepositoryImpl } from '@data/repositories/array/array-category.repository.impl';
+import { ArrayTaskRepositoryImpl } from '@data/repositories/array/array-task.repository.impl';
+import { GetCategoryUseCase } from '@domain/usecases/category/get-category.usecase';
+import { GetTaskUseCase } from '@domain/usecases/task/get-tasks.usecase';
 import { CategorySelectorPage } from "@shared/components/category-selector/category-selector.page";
+import { TaskItemComponent } from "@shared/components/task-item/task-item.component";
 import { TaskModalPage } from "@shared/components/task-modal/task-modal.page";
+import { FilterPipe } from '@shared/pipes/filter-pipe';
 import { CategoryEntity } from 'src/app/domain/entities/category.entity';
 import { TaskEntity } from 'src/app/domain/entities/task.entity';
-import { AddTaskUseCase } from 'src/app/domain/usecases/add-task.usecase';
-import { DeleteTaskUseCase } from 'src/app/domain/usecases/delete-category.usecase';
-import { FilterPipe } from '@shared/pipes/filter-pipe';
-import { UpdateTaskUseCase } from 'src/app/domain/usecases/update-task.usecase';
+import { AddTaskUseCase } from 'src/app/domain/usecases/task/add-task.usecase';
+import { DeleteTaskUseCase } from 'src/app/domain/usecases/task/delete-task.usecase';
+import { UpdateTaskUseCase } from 'src/app/domain/usecases/task/update-task.usecase';
 
 @Component({
   selector: 'tasks',
   templateUrl: './tasks.page.html',
   styleUrls: ['./tasks.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, CategorySelectorPage, TaskModalPage, RouterLink, FilterPipe]
+  imports: [IonicModule, CommonModule, FormsModule, CategorySelectorPage, TaskModalPage, RouterLink, FilterPipe, TaskItemComponent]
 })
 export class TasksPage implements OnInit {
 
@@ -35,8 +38,8 @@ export class TasksPage implements OnInit {
   modalTitle = signal<string>('');
 
   constructor(
-    private taskRepo: TaskRepositoryImpl,
-    private categoryRepo: CategoryRepositoryImpl
+    private taskRepo: ArrayTaskRepositoryImpl,
+    private categoryRepo: ArrayCategoryRepositoryImpl
   ) { }
 
   ngOnInit() {
@@ -44,8 +47,18 @@ export class TasksPage implements OnInit {
   }
 
   async loadData() {
-    this.tasks = await this.taskRepo.getTasks();
-    this.categories = await this.categoryRepo.getCategories();
+    await this.getTasks();
+    await this.getCategories();
+  }
+
+  async getTasks() {
+    const useCaseTask = new GetTaskUseCase(this.taskRepo);
+    this.tasks = await useCaseTask.execute();
+  }
+
+  async getCategories() {
+    const useCaseCategory = new GetCategoryUseCase(this.categoryRepo);
+    this.categories = await useCaseCategory.execute();
   }
 
   openCreateModal() {
@@ -62,22 +75,22 @@ export class TasksPage implements OnInit {
   async addTask(task: TaskEntity) {
     const useCaseTask = new AddTaskUseCase(this.taskRepo);
     await useCaseTask.execute(task);
-    this.tasks = await this.taskRepo.getTasks();
+    this.getTasks();
   }
 
   async updateTask(task: TaskEntity) {
     const useCaseTask = new UpdateTaskUseCase(this.taskRepo);
     await useCaseTask.execute(task);
-    this.tasks = await this.taskRepo.getTasks();
+    this.getTasks();
   }
 
   async deleteTask(task: TaskEntity) {
     const useCaseTask = new DeleteTaskUseCase(this.taskRepo);
     await useCaseTask.execute(task.id);
-    this.tasks = await this.taskRepo.getTasks();
+    this.getTasks();
   }
 
-  toggleTask(task: TaskEntity) {
+  onToggleTask(task: TaskEntity) {
     const updateTask = {
       ...task,
       completed: !task.completed
@@ -94,6 +107,10 @@ export class TasksPage implements OnInit {
   getCategoryName(categoryId: string): string {
     const category = this.categories.find(c => c.id === categoryId);
     return category?.name || 'Sin categoría';
+  }
+
+  onDeleteTask(task: TaskEntity) {
+    this.deleteTask(task);
   }
 
 }

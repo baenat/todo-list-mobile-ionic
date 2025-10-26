@@ -1,4 +1,5 @@
-import { CategoryRepository } from "../repositories/category.repository";
+import { CategoryRepository } from "../../repositories/category.repository";
+
 
 export class DeleteCategoryUseCase {
 

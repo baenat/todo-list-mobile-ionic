@@ -3,7 +3,7 @@ import { CategoryRepository } from 'src/app/domain/repositories/category.reposit
 import { CategoryEntity } from 'src/app/domain/entities/category.entity';
 
 @Injectable({ providedIn: 'root' })
-export class CategoryRepositoryImpl extends CategoryRepository {
+export class ArrayCategoryRepositoryImpl extends CategoryRepository {
 
   private categories: CategoryEntity[] = [
     { id: '1', name: 'Trabajo', color: '#3b82f6' },
@@ -11,7 +11,7 @@ export class CategoryRepositoryImpl extends CategoryRepository {
     { id: '3', name: 'Estudios', color: '#10b981' },
   ];
 
-  async getCategories(): Promise<CategoryEntity[]> { return this.categories; }
+  async getCategories(idCategory?: string): Promise<CategoryEntity[]> { return this.categories; }
 
   async addCategory(category: CategoryEntity): Promise<void> { this.categories.push(category); }
 

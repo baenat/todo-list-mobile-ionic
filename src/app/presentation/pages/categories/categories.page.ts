@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CategoryRepositoryImpl } from '@data/repositories/category.repository.impl';
+import { ArrayCategoryRepositoryImpl } from '@data/repositories/array/array-category.repository.impl';
+import { GetCategoryUseCase } from '@domain/usecases/category/get-category.usecase';
 import { IonicModule } from '@ionic/angular';
 import { CategoryModalPage } from "@shared/components/category-modal/category-modal.page";
 import { CategoryEntity } from 'src/app/domain/entities/category.entity';
-import { AddCategoryUseCase } from 'src/app/domain/usecases/add-category.usecase';
-import { DeleteCategoryUseCase } from 'src/app/domain/usecases/delete-task.usecase';
-import { UpdateCategoryUseCase } from 'src/app/domain/usecases/update-category.usecase';
+import { AddCategoryUseCase } from 'src/app/domain/usecases/category/add-category.usecase';
+import { DeleteCategoryUseCase } from 'src/app/domain/usecases/category/delete-category.usecase';
+import { UpdateCategoryUseCase } from 'src/app/domain/usecases/category/update-category.usecase';
 
 @Component({
   selector: 'categories',
@@ -40,7 +41,7 @@ export class CategoriesPage implements OnInit {
 
 
   constructor(
-    private categoryRepo: CategoryRepositoryImpl,
+    private categoryRepo: ArrayCategoryRepositoryImpl,
   ) { }
 
   ngOnInit() {
@@ -48,7 +49,12 @@ export class CategoriesPage implements OnInit {
   }
 
   async loadCategories() {
-    this.categories = await this.categoryRepo.getCategories();
+    await this.getCategories();
+  }
+
+  async getCategories() {
+    const useCaseCategory = new GetCategoryUseCase(this.categoryRepo);
+    this.categories = await useCaseCategory.execute();
   }
 
   openCreateModal() {
@@ -76,13 +82,13 @@ export class CategoriesPage implements OnInit {
   async addCategory(task: CategoryEntity) {
     const useCaseCategory = new AddCategoryUseCase(this.categoryRepo);
     await useCaseCategory.execute(task);
-    this.categories = await this.categoryRepo.getCategories();
+    this.getCategories();
   }
 
   async updateCategory(task: CategoryEntity) {
     const useCaseCategory = new UpdateCategoryUseCase(this.categoryRepo);
     await useCaseCategory.execute(task);
-    this.categories = await this.categoryRepo.getCategories();
+    this.getCategories();
   }
 
   async deleteCategory() {
@@ -91,7 +97,7 @@ export class CategoriesPage implements OnInit {
 
     const useCaseTask = new DeleteCategoryUseCase(this.categoryRepo);
     await useCaseTask.execute(category.id);
-    this.categories = await this.categoryRepo.getCategories();
+    this.getCategories();
   }
 
   async handleCategory(category: CategoryEntity) {

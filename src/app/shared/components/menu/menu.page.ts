@@ -42,7 +42,7 @@ export class MenuPage implements OnInit {
     {
       "icon": "list-outline",
       "name": "Tareas",
-      "redirectTo": "/task"
+      "redirectTo": "/tasks"
     },
     {
       "icon": "bookmarks-outline",

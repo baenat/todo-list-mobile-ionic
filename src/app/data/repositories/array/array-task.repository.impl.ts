@@ -3,16 +3,13 @@ import { TaskRepository } from 'src/app/domain/repositories/task.repository';
 import { TaskEntity } from 'src/app/domain/entities/task.entity';
 
 @Injectable({ providedIn: 'root' })
-export class TaskRepositoryImpl extends TaskRepository {
+export class ArrayTaskRepositoryImpl extends TaskRepository {
 
   private tasks: TaskEntity[] = [
-    { id: '1', title: 'Preparar presentación de...', categoryId: '1', completed: false, createdAt: new Date() },
-    { id: '2', title: 'Comprar víveres', categoryId: '2', completed: false, createdAt: new Date() },
-    { id: '3', title: 'Terminar proyecto de Ionic', categoryId: '1', completed: true, createdAt: new Date() },
-    { id: '4', title: 'Estudiar para el examen de...', categoryId: '3', completed: false, createdAt: new Date() },
+    { id: '1', title: 'Preparar presentación de powerpoint', categoryId: '1', completed: false, createdAt: new Date() },
   ];
 
-  async getTasks(): Promise<TaskEntity[]> { return this.tasks; }
+  async getTasks(idTask?: string): Promise<TaskEntity[]> { return this.tasks; }
 
   async addTask(task: TaskEntity): Promise<void> { this.tasks.push(task); }
 

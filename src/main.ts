@@ -6,6 +6,7 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { addIcons } from 'ionicons';
 import { add, trash, close, menu, list, bookmarks, home, settings, pencil, colorPalette } from 'ionicons/icons';
+import { appProviders } from '@data/providers/providers';
 
 addIcons({
   'trash-outline': trash,
@@ -25,6 +26,6 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
-    provideIonicAngular()
+    ...appProviders
   ],
 });

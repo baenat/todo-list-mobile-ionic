@@ -1,0 +1,32 @@
+<ion-item
+  lines="none"
+  class="task-item">
+  <div class="task-content">
+    <ion-checkbox
+      slot="start"
+      [checked]="task().completed"
+      (ionChange)="onToggleTask(task())"
+      class="task-checkbox">
+    </ion-checkbox>
+
+    <div class="task-info">
+      <ion-label [class.completed]="task().completed">
+        {{ task().title }}
+      </ion-label>
+      <div class="task-category">
+        <span class="category-dot"
+          [style.background-color]="getCategoryColor(task().categoryId)"></span>
+        <span class="category-text">{{ getCategoryName(task().categoryId) }}</span>
+      </div>
+    </div>
+
+    <ion-button
+      fill="clear"
+      slot="end"
+      color="danger"
+      (click)="onDeleteTask(task())">
+      <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </div>
+
+</ion-item>

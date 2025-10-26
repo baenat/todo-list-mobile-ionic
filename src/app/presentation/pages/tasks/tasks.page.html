@@ -14,43 +14,16 @@
 <ion-content [fullscreen]="true">
 
   <!-- Categories -->
-  <category-selector (category)="selectedCategory.set($event)" />
+  <category-selector [categories]="categories" (category)="selectedCategory.set($event)" />
 
   <!-- Tasks List -->
   <ion-list class="tasks-list">
     @for (task of tasks | filterBy: selectedCategory() ; track task.id) {
-      <ion-item
-        lines="none"
-        class="task-item">
-        <div class="task-content">
-          <ion-checkbox
-            slot="start"
-            [checked]="task.completed"
-            (ionChange)="toggleTask(task)"
-            class="task-checkbox">
-          </ion-checkbox>
-
-          <div class="task-info">
-            <ion-label [class.completed]="task.completed">
-              {{ task.title }}
-            </ion-label>
-            <div class="task-category">
-              <span class="category-dot"
-                [style.background-color]="getCategoryColor(task.categoryId)"></span>
-              <span class="category-text">{{ getCategoryName(task.categoryId) }}</span>
-            </div>
-          </div>
-
-          <ion-button
-            fill="clear"
-            slot="end"
-            color="danger"
-            (click)="deleteTask(task)">
-            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
-          </ion-button>
-        </div>
-
-      </ion-item>
+      <!-- Task Item -->
+      <task-item
+        [task]="task" [categories]="categories"
+        (toggleTask)="onToggleTask($event)" (deleteTask)="onDeleteTask($event)">
+      </task-item>
     }
     @empty {
     <div class="empty-state">
