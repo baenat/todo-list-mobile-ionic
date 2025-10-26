@@ -10,10 +10,10 @@ import { CategorySelectorPage } from "@shared/components/category-selector/categ
 import { TaskModalPage } from "@shared/components/task-modal/task-modal.page";
 import { CategoryEntity } from 'src/app/domain/entities/category.entity';
 import { TaskEntity } from 'src/app/domain/entities/task.entity';
-import { AddTaskUseCase } from 'src/app/domain/usecases/add-task.usecase';
-import { DeleteTaskUseCase } from 'src/app/domain/usecases/delete-category.usecase';
+import { AddTaskUseCase } from 'src/app/domain/usecases/task/add-task.usecase';
+import { DeleteTaskUseCase } from 'src/app/domain/usecases/task/delete-task.usecase';
 import { FilterPipe } from '@shared/pipes/filter-pipe';
-import { UpdateTaskUseCase } from 'src/app/domain/usecases/update-task.usecase';
+import { UpdateTaskUseCase } from 'src/app/domain/usecases/task/update-task.usecase';
 
 @Component({
   selector: 'tasks',

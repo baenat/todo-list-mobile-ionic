@@ -1,5 +1,5 @@
-import { TaskRepository } from "../repositories/task.repository";
-import { TaskEntity } from "../entities/task.entity";
+import { TaskRepository } from "../../repositories/task.repository";
+import { TaskEntity } from "../../entities/task.entity";
 
 export class UpdateTaskUseCase {
 

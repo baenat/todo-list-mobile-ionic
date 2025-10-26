@@ -1,5 +1,5 @@
-import { CategoryEntity } from "../entities/category.entity";
-import { CategoryRepository } from "../repositories/category.repository";
+import { CategoryEntity } from "../../entities/category.entity";
+import { CategoryRepository } from "../../repositories/category.repository";
 
 export class AddCategoryUseCase {
 

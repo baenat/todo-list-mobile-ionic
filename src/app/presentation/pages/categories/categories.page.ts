@@ -5,9 +5,9 @@ import { CategoryRepositoryImpl } from '@data/repositories/category.repository.i
 import { IonicModule } from '@ionic/angular';
 import { CategoryModalPage } from "@shared/components/category-modal/category-modal.page";
 import { CategoryEntity } from 'src/app/domain/entities/category.entity';
-import { AddCategoryUseCase } from 'src/app/domain/usecases/add-category.usecase';
-import { DeleteCategoryUseCase } from 'src/app/domain/usecases/delete-task.usecase';
-import { UpdateCategoryUseCase } from 'src/app/domain/usecases/update-category.usecase';
+import { AddCategoryUseCase } from 'src/app/domain/usecases/category/add-category.usecase';
+import { DeleteCategoryUseCase } from 'src/app/domain/usecases/category/delete-category.usecase';
+import { UpdateCategoryUseCase } from 'src/app/domain/usecases/category/update-category.usecase';
 
 @Component({
   selector: 'categories',
