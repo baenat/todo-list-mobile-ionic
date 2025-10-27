@@ -5,7 +5,7 @@
     </ion-title>
     <ion-buttons slot="end">
       <ion-button [routerLink]="'/categories'" routerDirection="forward">
-        <ion-icon name="bookmarks-outline" slot="icon-only" color="success"></ion-icon>
+        <ion-icon name="bookmarks-outline" slot="icon-only" color="info"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -14,7 +14,9 @@
 <ion-content [fullscreen]="true">
 
   <!-- Categories -->
-  <category-selector [categories]="categories" (category)="selectedCategory.set($event)" />
+   @if (categories.length) {
+     <category-selector [categories]="categories" (category)="selectedCategory.set($event)" />
+   }
 
   <!-- Tasks List -->
   <ion-list class="tasks-list">

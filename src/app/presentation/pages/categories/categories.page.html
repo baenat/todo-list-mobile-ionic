@@ -9,7 +9,9 @@
 
 <ion-content [fullscreen]="true">
   <div class="content-wrapper">
-    <p class="subtitle">Organiza tus tareas creando categorías.</p>
+    @if (categories.length) {
+      <p class="subtitle">Organiza tus tareas creando categorías.</p>
+    }
 
     <ion-list class="categories-list">
       @for (category of categories; track category.id) {
@@ -44,6 +46,11 @@
           </div>
         </ion-item>
       }
+    @empty {
+      <div class="empty-state">
+        <p>No hay categorías registradas</p>
+      </div>
+    }
     </ion-list>
   </div>
 

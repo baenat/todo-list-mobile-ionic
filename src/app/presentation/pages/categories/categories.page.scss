@@ -105,3 +105,14 @@ ion-fab-button {
     --background: #2563eb;
   }
 }
+
+.empty-state {
+  text-align: center;
+  padding: 64px 16px;
+  color: #9ca3af;
+
+  p {
+    font-size: 18px;
+    margin: 0;
+  }
+}
