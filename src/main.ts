@@ -10,6 +10,7 @@ import { routes } from './app/app.routes';
 
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getRemoteConfig, provideRemoteConfig } from '@angular/fire/remote-config';
 import { environment } from './environments/environment';
 
 addIcons({
@@ -34,6 +35,7 @@ bootstrapApplication(AppComponent, {
     /* Firebase */
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
+    provideRemoteConfig(() => getRemoteConfig()),
     ...appProviders
   ],
 });
