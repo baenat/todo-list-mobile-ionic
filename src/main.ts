@@ -8,6 +8,10 @@ import { addIcons } from 'ionicons';
 import { add, trash, close, menu, list, bookmarks, home, settings, pencil, colorPalette } from 'ionicons/icons';
 import { appProviders } from '@data/providers/providers';
 
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { environment } from './environments/environment';
+
 addIcons({
   'trash-outline': trash,
   'menu-outline': menu,
@@ -26,6 +30,9 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
+    /* Firebase */
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => getFirestore()),
     ...appProviders
   ],
 });
