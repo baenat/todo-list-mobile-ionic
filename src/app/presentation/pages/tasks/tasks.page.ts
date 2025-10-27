@@ -37,6 +37,8 @@ export class TasksPage implements OnInit {
   editingTask = signal<TaskEntity | null>(null);
   modalTitle = signal<string>('');
 
+  private isInitialLoad = signal(true);
+
   constructor(
     private taskRepo: TaskRepository,
     private categoryRepo: CategoryRepository
@@ -111,6 +113,10 @@ export class TasksPage implements OnInit {
 
   onDeleteTask(task: TaskEntity) {
     this.deleteTask(task);
+  }
+
+  ionViewWillEnter() {
+    (this.isInitialLoad()) ? this.isInitialLoad.set(false) : this.getCategories();
   }
 
 }

@@ -17,7 +17,7 @@ export class FirebaseCategoryRepositoryImpl extends CategoryRepository {
 
   async getCategories(): Promise<CategoryEntity[]> {
     const categoriesRef = collection(this.firestore, 'category');
-    return firstValueFrom(collectionData(categoriesRef, { idField: 'id' }) as Observable<CategoryEntity[]>);
+    return await firstValueFrom(collectionData(categoriesRef, { idField: 'id' }) as Observable<CategoryEntity[]>);
   }
 
   async addCategory(category: CategoryEntity): Promise<void> {

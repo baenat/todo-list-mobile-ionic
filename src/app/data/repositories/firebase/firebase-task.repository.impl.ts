@@ -17,7 +17,7 @@ export class FirebaseTaskRepositoryImpl extends TaskRepository {
 
   async getTasks(): Promise<TaskEntity[]> {
     const tasksRef = collection(this.firestore, 'task');
-    return firstValueFrom(collectionData(tasksRef, { idField: 'id' }) as Observable<TaskEntity[]>);
+    return await firstValueFrom(collectionData(tasksRef, { idField: 'id' }) as Observable<TaskEntity[]>);
   }
 
   async addTask(task: TaskEntity): Promise<void> {
