@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { CategoryRepository } from '@domain/repositories/category.repository';
 import { GetCategoryUseCase } from '@domain/usecases/category/get-category.usecase';
 import { IonicModule } from '@ionic/angular';
@@ -15,7 +16,7 @@ import { UpdateCategoryUseCase } from 'src/app/domain/usecases/category/update-c
   templateUrl: './categories.page.html',
   styleUrls: ['./categories.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, CategoryModalPage]
+  imports: [IonicModule, CommonModule, FormsModule, CategoryModalPage, RouterLink]
 })
 export class CategoriesPage implements OnInit {
 
