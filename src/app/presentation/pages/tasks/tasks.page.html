@@ -1,5 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="openCreateModal()">
+        <ion-icon name="add-outline" slot="icon-only" color="info"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title class="ion-text-bold">
       Mis Tareas
     </ion-title>
