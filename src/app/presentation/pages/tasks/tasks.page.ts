@@ -42,7 +42,7 @@ export class TasksPage implements OnInit {
   private isInitialLoad = signal(true);
 
   /* Remote Config */
-  isFeatureEnabled$ = this.remoteConfig.flag$(KeysRemoteConfig.CATEGORIES_FEATURE_DISABLED);
+  isFeatureEnabled$ = this.remoteConfig.flag$(KeysRemoteConfig.CATEGORIES_FEATURE_ENABLED);
 
   constructor(
     private taskRepo: TaskRepository,

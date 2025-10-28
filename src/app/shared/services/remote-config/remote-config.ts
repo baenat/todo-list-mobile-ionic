@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { RemoteConfig, fetchAndActivate, getBoolean, getValue } from '@angular/fire/remote-config';
+import { fetchAndActivate, getValue, RemoteConfig } from '@angular/fire/remote-config';
 import { BehaviorSubject, distinctUntilChanged, map, Observable } from 'rxjs';
 import { KeysRemoteConfig } from 'src/environments/environment';
 
 type ParamsRemoteConfig = {
-  [KeysRemoteConfig.CATEGORIES_FEATURE_DISABLED]: boolean;
+  [KeysRemoteConfig.CATEGORIES_FEATURE_ENABLED]: boolean;
 };
 
 @Injectable({
@@ -17,7 +17,7 @@ export class RemoteConfigService {
   ) { }
 
   private flagsParams$ = new BehaviorSubject<ParamsRemoteConfig>({
-    [KeysRemoteConfig.CATEGORIES_FEATURE_DISABLED]: false
+    [KeysRemoteConfig.CATEGORIES_FEATURE_ENABLED]: false
   });
 
   async initializeRemoteConfig(): Promise<void> {
@@ -26,7 +26,7 @@ export class RemoteConfigService {
       fetchTimeoutMillis: 10_000
     };
 
-    this.remoteConfig.defaultConfig = { [KeysRemoteConfig.CATEGORIES_FEATURE_DISABLED]: false };
+    this.remoteConfig.defaultConfig = { [KeysRemoteConfig.CATEGORIES_FEATURE_ENABLED]: false };
 
     try {
       await fetchAndActivate(this.remoteConfig);
@@ -39,7 +39,7 @@ export class RemoteConfigService {
 
   private publish(): void {
     const next: ParamsRemoteConfig = {
-      [KeysRemoteConfig.CATEGORIES_FEATURE_DISABLED]: getValue(this.remoteConfig, KeysRemoteConfig.CATEGORIES_FEATURE_DISABLED).asBoolean()
+      [KeysRemoteConfig.CATEGORIES_FEATURE_ENABLED]: getValue(this.remoteConfig, KeysRemoteConfig.CATEGORIES_FEATURE_ENABLED).asBoolean()
     };
     this.flagsParams$.next(next);
   }

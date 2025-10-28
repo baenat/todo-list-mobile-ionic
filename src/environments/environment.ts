@@ -16,7 +16,7 @@ export const environment = {
 };
 
 export enum KeysRemoteConfig {
-  CATEGORIES_FEATURE_DISABLED = 'categories_feature_disabled'
+  CATEGORIES_FEATURE_ENABLED = 'categories_feature_enabled'
 };
 
 /*
