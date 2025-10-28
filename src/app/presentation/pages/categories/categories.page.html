@@ -1,9 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
+      <ion-button [routerLink]="'/tasks'">
+        <ion-icon name="arrow-back-outline" slot="icon-only" color="info"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title>Gestionar Categorías</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openCreateModal()">
+        <ion-icon name="add-outline" slot="icon-only" color="info"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

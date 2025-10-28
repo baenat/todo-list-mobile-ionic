@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, output, signal } from '@angular/core';
+import { Component, input, OnInit, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonButton, IonInput, IonModal, IonSelect, IonSelectOption, } from '@ionic/angular/standalone';
 import { CategoryEntity } from 'src/app/domain/entities/category.entity';
@@ -12,7 +12,7 @@ import { TaskEntity } from 'src/app/domain/entities/task.entity';
   standalone: true,
   imports: [CommonModule, FormsModule, IonModal, IonButton, IonInput, IonSelect, IonSelectOption]
 })
-export class TaskModalPage {
+export class TaskModalPage implements OnInit {
 
   task = input<TaskEntity | null>();
   categories = input.required<CategoryEntity[]>();
@@ -27,6 +27,11 @@ export class TaskModalPage {
   categoryTask = signal<string>('');
 
   constructor() { }
+
+  ngOnInit() {
+    this.nameTask.set(this.task()?.title ?? '');
+    this.categoryTask.set(this.task()?.categoryId ?? '#3b82f6');
+  }
 
   onInputName(event: Event) {
     const input = event.target as HTMLInputElement;

@@ -16,6 +16,7 @@ export class TaskItemComponent {
 
   toggleTask = output<TaskEntity>();
   deleteTask = output<TaskEntity>();
+  editingTask = output<TaskEntity>();
 
   constructor() { }
 
@@ -35,6 +36,10 @@ export class TaskItemComponent {
 
   onDeleteTask(task: TaskEntity) {
     this.deleteTask.emit(task);
+  }
+
+  onEditTask(task: TaskEntity) {
+    this.editingTask.emit(task);
   }
 
 }

@@ -25,7 +25,7 @@
 
   .task-content {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
     padding: 16px;
     gap: 12px;
@@ -85,5 +85,28 @@
     .category-text {
       font-size: 14px;
       color: #6b7280;
+    }
+  }
+
+  .action-button {
+    --padding-start: 8px;
+    --padding-end: 8px;
+    margin: 0;
+
+    ion-icon {
+      font-size: 22px;
+      color: #6b7280;
+    }
+
+    &:hover ion-icon {
+      color: #374151;
+    }
+
+    &.delete-button ion-icon {
+      color: #ef4444;
+    }
+
+    &.delete-button:hover ion-icon {
+      color: #dc2626;
     }
   }
