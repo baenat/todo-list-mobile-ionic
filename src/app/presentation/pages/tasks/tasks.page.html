@@ -29,7 +29,9 @@
       <!-- Task Item -->
       <task-item
         [task]="task" [categories]="categories"
-        (toggleTask)="onToggleTask($event)" (deleteTask)="onDeleteTask($event)">
+        (toggleTask)="onToggleTask($event)"
+        (deleteTask)="onDeleteTask($event)"
+        (editingTask)="openEditModal($event)">
       </task-item>
     }
     @empty {
@@ -52,7 +54,7 @@
       [isOpen]="showTaskModal()"
       [task]="editingTask()"
       [categories]="categories"
-      (saveTask)="addTask($event)"
+      (saveTask)="handleTask($event)"
       (closeModal)="showTaskModal.set(false)">
     </task-modal>
    }

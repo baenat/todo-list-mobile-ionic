@@ -119,4 +119,15 @@ export class TasksPage implements OnInit {
     (this.isInitialLoad()) ? this.isInitialLoad.set(false) : this.getCategories();
   }
 
+  openEditModal(task: TaskEntity) {
+    console.log(task)
+    this.editingTask.set(task);
+    this.modalTitle.set('Editar Tarea');
+    this.showTaskModal.set(true);
+  }
+
+  async handleTask(task: TaskEntity) {
+    (this.editingTask()) ? await this.updateTask(task) : await this.addTask(task);
+  }
+
 }
