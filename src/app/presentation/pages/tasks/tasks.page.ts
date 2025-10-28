@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 
@@ -17,13 +17,15 @@ import { TaskEntity } from 'src/app/domain/entities/task.entity';
 import { AddTaskUseCase } from 'src/app/domain/usecases/task/add-task.usecase';
 import { DeleteTaskUseCase } from 'src/app/domain/usecases/task/delete-task.usecase';
 import { UpdateTaskUseCase } from 'src/app/domain/usecases/task/update-task.usecase';
+import { RemoteConfigService } from '@shared/services/remote-config/remote-config';
+import { KeysRemoteConfig } from 'src/environments/environment';
 
 @Component({
   selector: 'tasks',
   templateUrl: './tasks.page.html',
   styleUrls: ['./tasks.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, CategorySelectorPage, TaskModalPage, RouterLink, FilterPipe, TaskItemComponent]
+  imports: [IonicModule, CommonModule, FormsModule, CategorySelectorPage, TaskModalPage, RouterLink, FilterPipe, TaskItemComponent, AsyncPipe]
 })
 export class TasksPage implements OnInit {
 
@@ -39,9 +41,13 @@ export class TasksPage implements OnInit {
 
   private isInitialLoad = signal(true);
 
+  /* Remote Config */
+  isFeatureEnabled$ = this.remoteConfig.flag$(KeysRemoteConfig.CATEGORIES_FEATURE_DISABLED);
+
   constructor(
     private taskRepo: TaskRepository,
-    private categoryRepo: CategoryRepository
+    private categoryRepo: CategoryRepository,
+    private remoteConfig: RemoteConfigService
   ) { }
 
   ngOnInit() {

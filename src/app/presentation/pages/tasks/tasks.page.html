@@ -8,11 +8,13 @@
     <ion-title class="ion-text-bold">
       Mis Tareas
     </ion-title>
-    <ion-buttons slot="end">
-      <ion-button [routerLink]="'/categories'" routerDirection="forward">
-        <ion-icon name="bookmarks-outline" slot="icon-only" color="info"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    @if (!(isFeatureEnabled$ | async)) {
+      <ion-buttons slot="end">
+        <ion-button [routerLink]="'/categories'" routerDirection="forward">
+          <ion-icon name="bookmarks-outline" slot="icon-only" color="info"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    }
   </ion-toolbar>
 </ion-header>
 
