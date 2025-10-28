@@ -10,3 +10,7 @@ export const environment = {
     measurementId: "G-SEFSH3HX0M"
   }
 };
+
+export enum KeysRemoteConfig {
+  CATEGORIES_FEATURE_DISABLED = 'categories_feature_disabled'
+};

@@ -15,6 +15,9 @@ export const environment = {
   }
 };
 
+export enum KeysRemoteConfig {
+  CATEGORIES_FEATURE_DISABLED = 'categories_feature_disabled'
+};
 
 /*
  * For easier debugging in development mode, you can import the following file
