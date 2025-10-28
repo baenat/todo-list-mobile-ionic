@@ -10,7 +10,8 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-blue?style=for-the-badge&logo=typescript)
 ![CSS](https://img.shields.io/badge/css-%231572B6.svg?style=for-the-badge&logo=css&logoColor=white)
 ![GIT](https://img.shields.io/badge/Git-fc6d26?style=for-the-badge&logo=git&logoColor=white)
-![Cordova](https://img.shields.io/badge/Cordova-11-lightgrey?style=for-the-badge&logo=apachecordova)
+![Cordova](https://img.shields.io/badge/Cordova-12-lightgrey?style=for-the-badge&logo=apachecordova)
+![Firebase](https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black)
 ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
 ![License Badge](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
@@ -36,9 +37,9 @@ Esta aplicación busca **hacer tu lista realmente práctica**, con una interfaz 
 
 - **Ionic 7**
 - **Angular 20**
-- **Capacitor**
+- **Cordova**
 - **TypeScript**
-- **Ionic Storage**
+- **Firebase**
 
 
 ## 🧱 Estructura del proyecto
@@ -81,17 +82,52 @@ todo-list-mobile-ionic/
 └── README.md
 ```
 
+## 🔗 Requisitos Previos (Cordova)
+
+Antes de comenzar, asegúrate de tener instalado lo siguiente:
+
+### 1. Node.js y npm
+- **Node.js** (v18 o superior) - [Descargar](https://nodejs.org/)
+- Verifica la instalación: `node --version` y `npm --version`
+
+### 2. Ionic CLI y Cordova
+```bash
+npm install -g @ionic/cli cordova
+```
+
+### 3. Android Studio
+- Descarga e instala [Android Studio](https://developer.android.com/studio)
+- Durante la instalación, asegúrate de incluir:
+  - Android SDK
+  - Android SDK Platform-Tools
+  - Android SDK Build-Tools
+  - Android Virtual Device (AVD)
+
+### 4. Gradle
+- Gradle se instalará automáticamente con Android Studio
+- Verifica: `gradle --version`
+
+### 5. Java Development Kit (JDK)
+- JDK 17 (recomendado para Ionic 7)
+- Verifica: `java -version`
+
+### 6. Variables de Entorno
+Configura las siguientes variables de entorno en tu sistema:
+
+**Windows:**
+```bash
+ANDROID_HOME = C:\Users\TuUsuario\AppData\Local\Android\Sdk
+JAVA_HOME = C:\Program Files\Java\jdk-17
+Path = %ANDROID_HOME%\platform-tools;%ANDROID_HOME%\tools;%ANDROID_HOME%\build-tools
+```
+
+### 7. Verificar instalación
+```bash
+ionic info
+cordova requirements
+```
+
 ## ⚙️ Instalación
-
-### Prerrequisitos
-
-- Node.js (v18 o superior) - [Descargar](https://nodejs.org/)
-- npm o yarn
-- Git - [Descargar](https://git-scm.com/)
-- Ionic CLI: `npm install -g @ionic/cli`
-- Cordova: `npm install -g cordova`
-- Para Android: Android Studio y SDK - [Descargar](https://developer.android.com/studio)
-- Para iOS: Xcode (solo en macOS) - [Descargar](https://developer.apple.com/xcode/)
 
 Para instalar y ejecutar este proyecto localmente, sigue estos pasos:
 
@@ -102,7 +138,7 @@ Para instalar y ejecutar este proyecto localmente, sigue estos pasos:
     ```
 2. Navega al directorio del proyecto:
     ```bash
-    cd todo-list-app
+    cd todo-list-mobile-ionic
     ```
 3. Instala las dependencias:
     ```bash
@@ -112,20 +148,43 @@ Para instalar y ejecutar este proyecto localmente, sigue estos pasos:
     ```bash
     ionic serve
     ```
-5. Compilar para Android / iOS
+
+    Abre tu navegador web y navega a `http://localhost:4200/` o `http://localhost:8100/` .
+
+5. Agregar la plataforma Android
     ```bash
-      ionic cap build android
-      ionic cap build ios
+    ionic cordova platform add android
     ```
 
-Abre tu navegador web y navega a `http://localhost:4200/` o `http://localhost:8100/` .
+## 📱 Compilación y Ejecución
+
+1. Compilar la app web:
+    ```bash
+    ionic build
+    ```
+    Este comando compila tu código Angular y genera los archivos estáticos en la carpeta www/.
+
+2. Usar Cordova directamente para generar el APK
+    ```bash
+    cordova build android
+    ```
+
+3. Lanzar el APK en el emulador
+    ```bash
+    cordova emulate android
+    ```
+
+4. Ejecutar en dispositivo conectado
+    ```bash
+    ionic cordova run android --device
+    ```
+
 
 ## 📸 Capturas de pantalla
 
 | 🏠 Inicio | ➕ Nueva tarea | 🗂️ Categorías  |
 | --------------------------------------- | ------------------------------------------- | --------------------------------------------- |
 | ![Screenshot 1](./src/assets/screenshots/tasks.png) | ![Screenshot 2](./src/assets/screenshots/add-task.png) | ![Screenshot 3](./src/assets/screenshots/categories.png) |
-
 
 ## 🗂️ Características
 
