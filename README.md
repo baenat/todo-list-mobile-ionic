@@ -186,7 +186,39 @@ Para instalar y ejecutar este proyecto localmente, sigue estos pasos:
 | --------------------------------------- | ------------------------------------------- | --------------------------------------------- |
 | ![Screenshot 1](./src/assets/screenshots/tasks.png) | ![Screenshot 2](./src/assets/screenshots/add-task.png) | ![Screenshot 3](./src/assets/screenshots/categories.png) |
 
-## 🗂️ Características
+
+### 🎯 Feature Flag Implementado
+
+**`categories_feature_enabled`** - Controla la visibilidad de la funcionalidad de categorías en la aplicación.
+
+- ✅ `false` → Las categorías están **habilitadas** (visible para usuarios)
+- ❌ `true` → Las categorías están **deshabilitadas** (ocultas para usuarios)
+
+
+## 🎮 Demo de Funcionalidad
+
+### Escenario 1: Categorías Habilitadas (Default)
+
+Cuando `categories_feature_enabled = true`:
+
+```
+Task Page
+├── ✅ Sección de Categorías VISIBLE
+└── ✅ Botón "Ver Categorías" VISIBLE
+```
+
+### Escenario 2: Categorías Deshabilitadas
+
+Cuando `categories_feature_enabled = false`:
+
+```
+Task Page
+├── ❌ Sección de Categorías OCULTA
+└── ❌ Botón "Ver Categorías" OCULTO
+```
+
+
+## 🗂️ Características Generales 
 
 - Añadir, editar y eliminar tareas.
 - Marcar tareas como completadas.
