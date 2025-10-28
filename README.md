@@ -217,6 +217,13 @@ Task Page
 └── ❌ Botón "Ver Categorías" OCULTO
 ```
 
+## 🎬 Demo
+<div align="center">
+
+![Feature Flag Demo](./src/assets/screenshots/feature-flag-demo.gif)
+
+</div>
+
 
 ## 🗂️ Características Generales 
 
